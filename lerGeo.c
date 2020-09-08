@@ -16,13 +16,13 @@ void lerGeo(char arqGeo[], char nomeSvgGeo[], Lista listasObjetos[])
     char tipo[10];
     char cep[20];
     double x, y, h, w;
-    char expessura[2];
-    char hidraExpessura[2];
-    char semaExpessura[2];
-    char quaExpessura[2];
-    char radioExpessura[2];
-    char circleExpessura[2];
-    char rectExpessura[2];
+    char expessura[20];
+    char hidraExpessura[20];
+    char semaExpessura[20];
+    char quaExpessura[20];
+    char radioExpessura[20];
+    char circleExpessura[20];
+    char rectExpessura[20];
     char borda[22]; 
     char preenchimento[22];
     char Qborda[22] = "black", Qpreenchimento[22] = "red";
@@ -30,12 +30,12 @@ void lerGeo(char arqGeo[], char nomeSvgGeo[], Lista listasObjetos[])
     char Sborda[22] = "black", Spreenchimento[22] = "blue";
     char Hborda[22] = "black", Hpreenchimento[22] = "yellow";
 
-    hidraExpessura[0] = '0';
-    semaExpessura[0] = '0';
-    quaExpessura[0] = '0';
-    radioExpessura[0] = '0';
-    circleExpessura[0] = '0';
-    rectExpessura[0] = '0';
+    hidraExpessura[0] = '2';
+    semaExpessura[0] = '2';
+    quaExpessura[0] = '2';
+    radioExpessura[0] = '2';
+    circleExpessura[0] = '2';
+    rectExpessura[0] = '2';
 
     geo = fopen(arqGeo,"r");
 
@@ -87,9 +87,9 @@ void lerGeo(char arqGeo[], char nomeSvgGeo[], Lista listasObjetos[])
         }
         else if(strcmp(tipo, "q")==0)
         {
-            fscanf(geo,"%s %lf %lf %lf %lf\n", cep, &x, &y, &h, &w);
+            fscanf(geo,"%s %lf %lf %lf %lf\n", cep, &x, &y, &w, &h);
             Quadra quadra = criaQuadra(cep, x, y, w, h, quaExpessura, Qpreenchimento, Qborda);
-            desenhaQuadra(w, h, x, y, borda, preenchimento, cep, nomeSvgGeo, quaExpessura);
+            desenhaQuadra(w, h, x, y, Qborda, Qpreenchimento, cep, nomeSvgGeo, quaExpessura);
             insert(listasObjetos[3], quadra);
             
             n++;
@@ -98,7 +98,7 @@ void lerGeo(char arqGeo[], char nomeSvgGeo[], Lista listasObjetos[])
         {
             fscanf(geo,"%s %lf %lf\n", id2, &x, &y);
             Hidrante hidrante = criaHidrante(id2, x, y, hidraExpessura, Hpreenchimento, Hborda);
-            desenhaHidrante(5, x, y, Qborda, Qpreenchimento, nomeSvgGeo, hidraExpessura);
+            desenhaHidrante(5, x, y, Hborda, Hpreenchimento, nomeSvgGeo, hidraExpessura);
             insert(listasObjetos[4], hidrante);
 
             n++;
@@ -128,7 +128,6 @@ void lerGeo(char arqGeo[], char nomeSvgGeo[], Lista listasObjetos[])
             strcpy(quaExpessura, expessura);
             strcpy(Qpreenchimento, preenchimento);
             strcpy(Qborda, borda);            
-            
             n++;
         }
         else if(strcmp(tipo, "ch")==0)
@@ -138,7 +137,6 @@ void lerGeo(char arqGeo[], char nomeSvgGeo[], Lista listasObjetos[])
             strcpy(hidraExpessura, expessura);
             strcpy(Hpreenchimento, preenchimento);
             strcpy(Hborda, borda);            
-            
             n++;
         }
         else if(strcmp(tipo, "cr")==0)
@@ -147,8 +145,7 @@ void lerGeo(char arqGeo[], char nomeSvgGeo[], Lista listasObjetos[])
 
             strcpy(radioExpessura, expessura);
             strcpy(RBpreenchimento, preenchimento);
-            strcpy(RBborda, borda);  
-
+            strcpy(RBborda, borda); 
             n++;
         }
         else if(strcmp(tipo, "cs")==0)
@@ -158,7 +155,6 @@ void lerGeo(char arqGeo[], char nomeSvgGeo[], Lista listasObjetos[])
             strcpy(semaExpessura, expessura);
             strcpy(Spreenchimento, preenchimento);
             strcpy(Sborda, borda); 
-
             n++;
         }
         else if(strcmp(tipo, "sw")==0)

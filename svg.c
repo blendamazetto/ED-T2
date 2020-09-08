@@ -81,8 +81,8 @@ void desenhaQuadra(double w, double h, double x, double y, char cor_b[], char co
         exit(1);
     }
 
-    fprintf(arqSvg,"\t<rect x=\"%lf\" y=\"%lf\" width=\"%lf\" height=\"%lf\" fill=\"%s\" stroke=\"%s\" stroke-width=\"%s\"/>\n",x, y, w, h, cor_b, cor_p, quaExpessura);
-    fprintf(arqSvg, "\n<text x=\"%lf\" y=\"%lf\" fill=\"black\">%s</text>\n", (x+w)/2, (y+h)/2, cep);
+    fprintf(arqSvg,"\t<rect x=\"%lf\" y=\"%lf\" width=\"%lf\" height=\"%lf\" fill=\"%s\" stroke=\"%s\" stroke-width=\"%s\"/>\n",x, y, w, h, cor_p, cor_b, quaExpessura);
+    fprintf(arqSvg, "\n<text x=\"%lf\" y=\"%lf\" fill=\"black\">%s</text>\n", x+w/2, y+h/2, cep);
 
     fclose(arqSvg);
 
