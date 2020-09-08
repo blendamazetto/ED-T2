@@ -78,6 +78,56 @@ Info getInfo(No elemento)
     return node->info;
 }
 
+void insertAfter(Lista lista, No node, Info info)
+{
+    ListaStruct* lis = (ListaStruct*) lista;
+    NoStruct* nod = (NoStruct*) node;
+    NoStruct* novo = (NoStruct*) malloc(sizeof(NoStruct));
+
+    novo->info = info;
+
+    if(nod->proximo == NULL){
+        nod->proximo = novo;
+        novo->proximo = NULL;
+        novo->anterior = nod;
+        lis->ultimo = novo;
+    }
+    else
+    {
+        NoStruct* aux = nod->proximo;
+        nod->proximo = novo;
+        novo->proximo = aux;
+        novo->anterior = nod;
+        aux->anterior = novo;
+    }
+
+}
+
+void insertBefore(Lista lista, No node, Info info)
+{
+    ListaStruct* lis = (ListaStruct*) lista;
+    NoStruct *nod = (NoStruct*) node;
+
+    NoStruct* novo = (NoStruct*) malloc(sizeof(NoStruct));
+    novo->info = info;
+
+    if(nod->anterior == NULL)
+    {
+        nod->anterior = novo;
+        novo->proximo = nod;
+        novo->anterior = NULL;
+        lis->primeiro = novo;
+    }
+    else
+    {
+        NoStruct* aux = nod->anterior;
+        nod->anterior = novo;
+        novo->proximo = nod;
+        novo->anterior = aux;
+        aux->proximo = novo;
+    }
+}
+
 void removerNo(Lista lista, No no)
 {
     ListaStruct* l = (ListaStruct*) lista;

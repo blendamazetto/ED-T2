@@ -213,3 +213,271 @@ void del (Lista listasObjetos[], char id[], FILE* saida, char saidaSvg[])
 
     fclose(svgQry);
 }
+
+void crd (Lista listasObjetos[], char id[], FILE* saida)
+{
+    if(buscarQuadra(listasObjetos, id) != NULL)
+    {
+        Info q = getInfo(buscarQuadra(listasObjetos, id));
+        fprintf(saida,"%lf %lf QUADRA\n", getQuadraX(q), getQuadraY(q));
+    }
+
+    if(buscarHidrante(listasObjetos, id) != NULL)
+    {
+       
+        Info h = getInfo(buscarHidrante(listasObjetos, id));
+        fprintf(saida,"%lf %lf HIDRANTE\n", getHidranteX(h), getHidranteY(h));
+    }
+
+    if(buscarSemaforo(listasObjetos, id) != NULL)
+    {
+       Info s = getInfo(buscarSemaforo(listasObjetos, id));
+        fprintf(saida,"%lf %lf SEMAFORO\n", getSemaforoX(s), getSemaforoY(s));
+    }
+
+    if(buscarRadioBase(listasObjetos, id) != NULL)
+    {
+        Info rb = getInfo(buscarRadioBase(listasObjetos, id));
+        fprintf(saida,"%lf %lf RADIO BASE\n", getRadiobaseX(rb), getRadiobaseY(rb));
+    }
+}
+
+float max(float n1, float n2)
+{
+    if(n1 > n2)
+    {
+        return n1;
+    }
+    return n2;
+}
+
+float min(float n1, float n2)
+{
+    if(n1 > n2)
+    {
+        return n2;
+    }
+    return n1;
+}
+
+void retanguloxCirculo(Info circ, Info ret, FILE* saida, char saidaSvg[])
+{
+    float deltaX, deltaY, x, y, w, h;
+
+    if(getCirculoX(circ) > getRetanguloX(ret))
+    {
+        deltaX = pow(getRetanguloX(ret) + getRetanguloW(ret) - getCirculoX(ret),2);
+    }
+    else
+    {
+        deltaX = pow(getRetanguloX(ret) - getCirculoX(circ),2);
+    }
+    if(getCirculoY(circ) > getRetanguloY(ret))
+    {
+        deltaY = pow(getRetanguloY(ret) + getRetanguloH(ret) - getCirculoY(circ),2);
+    }
+    else
+    {
+        deltaY = pow(getRetanguloY(ret) - getCirculoY(circ),2);
+    }
+
+    x = min(getRetanguloX(ret),getCirculoX(circ) - getCirculoR(circ));
+    w = max(getRetanguloX(ret) + getRetanguloW(ret),getCirculoX(circ) + getCirculoR(circ)) - x;
+    y = min(getRetanguloY(ret),getCirculoY(circ) - getCirculoR(circ));
+    h = max(getRetanguloY(ret) + getRetanguloH(ret),getCirculoY(circ) + getCirculoR(circ)) - y;
+
+    if(sqrt(deltaX + deltaY) <= getCirculoR(circ))
+    {
+        fprintf(saida,"%d: circulo %d: retangulo SIM\n", getCirculoI(circ), getRetanguloI(ret));
+        desenhaRetangulo(w,h,x,y, "black", "transparent", saidaSvg);
+    }
+    else
+    {
+        fprintf(saida,"%d: circulo %d: retangulo NAO\n", getCirculoI(circ), getRetanguloI(ret));
+        desenhaRetangulo(w,h,x,y, "black", "transparent", saidaSvg);
+    }
+}
+
+void circuloInt(Info c1, Info c2, FILE* saida, char saidaSvg[])
+{
+    float dist,x,y,w,h;
+
+    dist = sqrt(pow(getCirculoX(c1) - getCirculoX(c2),2) + pow(getCirculoY(c1) - getCirculoY(c2),2));
+    x = min(getCirculoX(c1) - getCirculoR(c1), getCirculoX(c2) - getCirculoR(c2));
+    w = max(getCirculoX(c1) + getCirculoR(c1), getCirculoX(c2) + getCirculoR(c2)) - x;
+    y = min(getCirculoY(c1) - getCirculoR(c1), getCirculoY(c2) - getCirculoR(c2));
+    h = max(getCirculoY(c1) + getCirculoR(c1), getCirculoY(c2) + getCirculoR(c2)) - y;
+
+    if(dist <= getCirculoR(c2) + getCirculoR(c1))
+    {
+        fprintf(saida,"%d: circulo %d: circulo SIM\n", getCirculoI(c1),getCirculoI(c2));
+        desenhaRetangulo(w,h,x,y, "black", "transparent", saidaSvg);
+    }
+    else
+    {
+        fprintf(saida,"%d: circulo %d: circulo NAO\n",getCirculoI(c1),getCirculoI(c2));
+        desenhaRetangulo(w,h,x,y, "black", "transparent", saidaSvg);
+    }
+}
+
+void retanguloInt(Info r1, Info r2, FILE* saida, char saidaSvg[])
+{
+    float x,w,y,h;
+    x = min(getRetanguloX(r1),getRetanguloX(r2));
+    w = max(getRetanguloX(r1) + getRetanguloW(r1),getRetanguloX(r2) + getRetanguloW(r2)) - x;
+    y = min(getRetanguloY(r1),getRetanguloY(r2));
+    h = max(getRetanguloY(r1) + getRetanguloH(r1),getRetanguloY(r2) + getRetanguloH(r2)) - y;
+
+    if (w <= getRetanguloW(r1) + getRetanguloW(r2) && h <= getRetanguloH(r1) + getRetanguloH(r2))
+    {
+        fprintf(saida,"%d: retangulo %d: retangulo SIM\n", getRetanguloI(r1),getRetanguloI(r2));
+        desenhaRetangulo(w,h,x,y, "black", "transparent", saidaSvg);
+    }
+    else
+    {
+        fprintf(saida,"%d: retangulo %d: retangulo NAO\n", getRetanguloI(r1),getRetanguloI(r2));
+        desenhaRetangulo(w,h,x,y, "black", "transparent", saidaSvg);
+    }
+}
+
+void o(int j, int k, FILE* saida, char saidaSvg[], Lista listasObjetos[])
+{
+    if(buscarCirculo(listasObjetos, j) != NULL && buscarCirculo(listasObjetos, k) != NULL)
+    {
+        Info c1 = getInfo(buscarCirculo(listasObjetos, j));
+        Info c2 = getInfo(buscarCirculo(listasObjetos, k));
+        circuloInt(c1, c2, saida, saidaSvg);
+    }
+
+   else if(buscarRetangulo(listasObjetos, j) != NULL && buscarCirculo(listasObjetos, k) != NULL)
+    {
+        Info ret = getInfo(buscarRetangulo(listasObjetos, j));
+        Info circ = getInfo(buscarCirculo(listasObjetos, k));
+        retanguloxCirculo(circ, ret, saida, saidaSvg);           
+    }
+
+    else if(buscarRetangulo(listasObjetos, k) != NULL && buscarCirculo(listasObjetos, j) != NULL)
+    {
+        Info ret = getInfo(buscarRetangulo(listasObjetos, k));
+        Info circ = getInfo(buscarCirculo(listasObjetos, j));
+        retanguloxCirculo(circ, ret, saida, saidaSvg);              
+    }
+
+    else if(buscarRetangulo(listasObjetos, j) != NULL && buscarRetangulo(listasObjetos, k) != NULL)
+    {
+        Info r1 = getInfo(buscarRetangulo(listasObjetos, j));
+        Info r2 = getInfo(buscarRetangulo(listasObjetos, k));
+        retanguloInt(r1, r2, saida, saidaSvg);
+    }
+}
+
+void dq(Lista listaObjetos[], FILE* txt, char svg_qry[], char id[], double r, int ident)
+{
+    FILE *svgQry = fopen(svg_qry, "a");
+
+    Info info;
+    No aux;
+    No node;
+    int i; 
+    int achou = 0;
+    double x;
+    double y;
+
+
+    switch (id[0])
+    {
+        case 'h':
+            i = 4;
+            fprintf(txt,"Hidrante: ");
+            break;
+
+        case 's':
+            i = 5;
+            fprintf(txt,"Semaforo: ");
+            break;
+
+        case 'r':
+            i = 6;
+            fprintf(txt,"Torre de Radio: ");
+            break;
+    }
+
+    if(i == 4)
+    {
+        for(node = getFirst(listaObjetos[i]); node != NULL; node = getNext(node))
+        {
+            info = getInfo(node);
+            if(strcmp(getHidranteId(info),id) == 0)
+            {
+                x = getHidranteX(info);
+                y = getHidranteY(info);
+                achou = 0;
+                fprintf(svgQry,"\t<circle cx=\"%lf\" cy=\"%lf\" r=\"%lf\" fill=\"black\" stroke=\"black\"/>\n",x,y,r);
+                fprintf(txt,"\nId: %s X: %lf Y: %lf\n",id,x,y);
+                break;
+            }
+        }
+    }
+
+    else if(i == 5)
+    {
+        for(node = getFirst(listaObjetos[i]); node != NULL; node = getNext(node))
+        {
+            info = getInfo(node);
+            if(strcmp(getSemaforoId(info),id) == 0)
+            {
+                x = getSemaforoX(info);
+                y = getSemaforoY(info);
+                achou = 0;
+                fprintf(svgQry,"\t<circle cx=\"%lf\" cy=\"%lf\" r=\"%lf\" fill=\"black\" stroke=\"black\"/>\n",x,y,r);
+                fprintf(txt,"\nId: %s X: %lf Y: %lf\n",id,x,y);
+                break;
+            }
+        }
+    }
+
+    else if(i == 6)
+    {
+        for(node = getFirst(listaObjetos[i]); node != NULL; node = getNext(node))
+        {
+            info = getInfo(node);
+            if(strcmp(getRadiobaseId(info),id) == 0)
+            {
+                x = getRadiobaseX(info);
+                y = getRadiobaseY(info);
+                achou = 0;
+                fprintf(svgQry,"\t<circle cx=\"%lf\" cy=\"%lf\" r=\"%lf\" fill=\"black\" stroke=\"black\"/>\n",x,y,r);
+                fprintf(txt,"\nId: %s X: %lf Y: %lf\n",id,x,y);
+                break;
+            }
+        }
+    }
+
+   if(achou == 1)
+    {
+        fprintf(txt, "OBJETO NAO ENCONTRADO\n");
+        return;
+    }
+
+    node = getFirst(listaObjetos[3]);
+    while(node != NULL)
+    {
+        info = getInfo(node);
+        if(distancia(getQuadraX(info),getQuadraY(info),x,y) <= r && distancia(getQuadraX(info) + getQuadraW(info) ,getQuadraY(info) + getQuadraH(info),x,y) <= r)
+        {
+            if(ident)
+            {
+                fprintf(svgQry,"\t<rect x=\"%lf\" y=\"%lf\" width=\"%lf\" height=\"%lf\" fill=\"beige\" stroke=\"olive\"  stroke-width=\"%s\" rx=\"20\"/>\n",getQuadraX(info),getQuadraY(info),getQuadraW(info),getQuadraH(info),getQuadraSw(info));
+            }
+            fprintf(txt,"\n%s", getQuadraCep(info));
+            aux = node;
+            node = getNext(node);
+            removerNo(listaObjetos[3], aux);
+        }
+        else{
+            node = getNext(node);
+        }
+    }
+
+    fclose(svgQry);
+}
