@@ -70,7 +70,7 @@ void escreveTexto(double x, double y, char cor_b[], char cor_p[], char text[], c
     fclose(arqSvg);
 }
 
-void desenhaQuadra(double w, double h, double x, double y, char cor_b[], char cor_p[], char cep[], char svg[])
+void desenhaQuadra(double w, double h, double x, double y, char cor_b[], char cor_p[], char cep[], char svg[], char quaExpessura[])
 {
     FILE *arqSvg;
     arqSvg = fopen(svg, "a");
@@ -81,16 +81,14 @@ void desenhaQuadra(double w, double h, double x, double y, char cor_b[], char co
         exit(1);
     }
 
-    fprintf(arqSvg, "\n<rect x=\"%lf\" y=\"%lf\" width=\"%lf\" height=\"%lf\" style=\"fill:%s;stroke:%s;stroke-width=0.5 \"/>\n", 
-    w, h, x, y, cor_p, cor_b);
-
-    fprintf(arqSvg, "\n<text x=\"%lf\" y=\"%lf\" fill=\"black\">%s</text>\n", x, y, cep);
+    fprintf(arqSvg,"\t<rect x=\"%lf\" y=\"%lf\" width=\"%lf\" height=\"%lf\" fill=\"%s\" stroke=\"%s\" stroke-width=\"%s\"/>\n",x, y, w, h, cor_b, cor_p, quaExpessura);
+    fprintf(arqSvg, "\n<text x=\"%lf\" y=\"%lf\" fill=\"black\">%s</text>\n", (x+w)/2, (y+h)/2, cep);
 
     fclose(arqSvg);
 
 }
 
-void desenhaHidrante(double raio, double x, double y, char cor_b[], char cor_p[], char svg[])
+void desenhaHidrante(double raio, double x, double y, char cor_b[], char cor_p[], char svg[], char hidraExpessura[])
 {
     FILE *arqSvg;
     arqSvg = fopen(svg, "a");
@@ -101,14 +99,13 @@ void desenhaHidrante(double raio, double x, double y, char cor_b[], char cor_p[]
         exit(1);
     }
 
-    fprintf(arqSvg, "\n<circle cx=\"%lf\" cy=\"%lf\" r=\"%lf\" stroke=\"%s\" stroke-width=\"0.5 \" fill=\"%s\"/>\n ", x, y, raio, cor_b,cor_p);
-
-    fprintf(arqSvg, "\n<text x=\"%lf\" y=\"%lf\" fill=\"black\">H</text>\n", x, y);
+    fprintf(arqSvg, "\n<circle cx=\"%lf\" cy=\"%lf\" r=\"%lf\" stroke=\"%s\" stroke-width=\"%s\" fill=\"%s\"/>\n ", x, y, raio, cor_b, hidraExpessura,cor_p);
+    //fprintf(arqSvg, "\n<text x=\"%lf\" y=\"%lf\" fill=\"black\">H</text>\n", x, y);
 
     fclose(arqSvg);
 }
 
-void desenhaSemaforo(double raio, double x, double y, char cor_b[], char cor_p[], char svg[])
+void desenhaSemaforo(double raio, double x, double y, char cor_b[], char cor_p[], char svg[], char semaExpessura[])
 {
     FILE *arqSvg;
     arqSvg = fopen(svg, "a");
@@ -119,13 +116,13 @@ void desenhaSemaforo(double raio, double x, double y, char cor_b[], char cor_p[]
         exit(1);
     }
 
-    fprintf(arqSvg, "\n<circle cx=\"%lf\" cy=\"%lf\" r=\"%lf\" stroke=\"%s\" stroke-width=\"0.5 \" fill=\"%s\"/>\n ", x, y, raio, cor_b,cor_p);
+    fprintf(arqSvg, "\n<circle cx=\"%lf\" cy=\"%lf\" r=\"%lf\" stroke=\"%s\" stroke-width=\"%s\" fill=\"%s\"/>\n ", x, y, raio, cor_b, semaExpessura, cor_p);
 
-    fprintf(arqSvg, "\n<text x=\"%lf\" y=\"%lf\" fill=\"black\">S</text>\n", x, y);
+   // fprintf(arqSvg, "\n<text x=\"%lf\" y=\"%lf\" fill=\"black\">S</text>\n", x, y);
     fclose(arqSvg);
 }
 
-void desenhaRadioBase(double raio, double x, double y, char cor_b[], char cor_p[], char svg[])
+void desenhaRadioBase(double raio, double x, double y, char cor_b[], char cor_p[], char svg[], char radioExpessura[])
 {
     FILE *arqSvg;
     arqSvg = fopen(svg, "a");
@@ -136,9 +133,9 @@ void desenhaRadioBase(double raio, double x, double y, char cor_b[], char cor_p[
         exit(1);
     }
 
-    fprintf(arqSvg, "\n<circle cx=\"%lf\" cy=\"%lf\" r=\"%lf\" stroke=\"%s\" stroke-width=\"0.5 \" fill=\"%s\"/>\n ", x, y, raio, cor_b,cor_p);
+    fprintf(arqSvg, "\n<circle cx=\"%lf\" cy=\"%lf\" r=\"%lf\" stroke=\"%s\" stroke-width=\"%s\" fill=\"%s\"/>\n ", x, y, raio, cor_b, radioExpessura, cor_p);
 
-    fprintf(arqSvg, "\n<text x=\"%lf\" y=\"%lf\" fill=\"black\">RB</text>\n", x, y);
+   // fprintf(arqSvg, "\n<text x=\"%lf\" y=\"%lf\" fill=\"black\">RB</text>\n", x, y);
 
     fclose(arqSvg);
 
@@ -203,7 +200,7 @@ void gerarSvgQry(Lista listasObjetos[], char saidaSvg[])
         for(node = getFirst(listasObjetos[i]); node != NULL; node = getNext(node))
         {
             Info q = getInfo(node);
-            desenhaQuadra(getQuadraW(q), getQuadraH(q), getQuadraX(q), getQuadraY(q), getRadiobaseCstrk(q), getQuadraCfill(q), getQuadraCep(q), saidaSvg);           
+            desenhaQuadra(getQuadraW(q), getQuadraH(q), getQuadraX(q), getQuadraY(q), getRadiobaseCstrk(q), getQuadraCfill(q), getQuadraCep(q), saidaSvg, getQuadraSw(q));           
         } 
         i++;
     }
@@ -214,7 +211,7 @@ void gerarSvgQry(Lista listasObjetos[], char saidaSvg[])
         for(node = getFirst(listasObjetos[i]); node != NULL; node = getNext(node))
         {
             Info h = getInfo(node);
-            desenhaHidrante(5, getHidranteX(h), getHidranteY(h), getHidranteCstrk(h), getHidranteCfill(h), saidaSvg);            
+            desenhaHidrante(5, getHidranteX(h), getHidranteY(h), getHidranteCstrk(h), getHidranteCfill(h), saidaSvg, getHidranteSw(h));            
         } 
         i++;
     }
@@ -225,7 +222,7 @@ void gerarSvgQry(Lista listasObjetos[], char saidaSvg[])
         for(node = getFirst(listasObjetos[i]); node != NULL; node = getNext(node))
         {
             Info s = getInfo(node);
-            desenhaSemaforo(5, getSemaforoX(s), getSemaforoY(s), getSemaforoCstrk(s), getSemaforoCfill(s), saidaSvg);
+            desenhaSemaforo(5, getSemaforoX(s), getSemaforoY(s), getSemaforoCstrk(s), getSemaforoCfill(s), saidaSvg, getSemaforoSw(s));
         } 
         i++;
     }
@@ -236,7 +233,7 @@ void gerarSvgQry(Lista listasObjetos[], char saidaSvg[])
         for(node = getFirst(listasObjetos[i]); node != NULL; node = getNext(node))
         {
             Info rb = getInfo(node);
-            desenhaRadioBase(5, getRadiobaseX(rb), getRadiobaseY(rb), getRadiobaseCstrk(rb), getRadiobaseCfill(rb), saidaSvg);            
+            desenhaRadioBase(5, getRadiobaseX(rb), getRadiobaseY(rb), getRadiobaseCstrk(rb), getRadiobaseCfill(rb), saidaSvg, getRadiobaseSw(rb));            
         } 
         i++;
     }

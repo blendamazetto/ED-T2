@@ -49,7 +49,7 @@ void escreveTexto(double x, double y, char cor_b[], char cor_p[], char text[], c
     *Retorna nada, fecha o svg apenas.
     * 
 */
-void desenhaQuadra(double w, double h, double x, double y, char cor_b[], char cor_p[], char cep[], char svg[]);
+void desenhaQuadra(double w, double h, double x, double y, char cor_b[], char cor_p[], char cep[], char svg[], char quaExpessura[]);
 
 /*
     *Desenha um hidrante no arquivo svg, colcocando o comando adequado para isso
@@ -57,7 +57,7 @@ void desenhaQuadra(double w, double h, double x, double y, char cor_b[], char co
     *Retorna nada, fecha o svg apenas.
     * 
 */
-void desenhaHidrante(double raio, double x, double y, char cor_b[], char cor_p[], char svg[]);
+void desenhaHidrante(double raio, double x, double y, char cor_b[], char cor_p[], char svg[], char hidraExpessura[]);
 
 /*
     *Desenha um semaforo no arquivo svg, colcocando o comando adequado para isso
@@ -65,7 +65,7 @@ void desenhaHidrante(double raio, double x, double y, char cor_b[], char cor_p[]
     *Retorna nada, fecha o svg apenas.
     * 
 */
-void desenhaSemaforo(double raio, double x, double y, char cor_b[], char cor_p[], char svg[]);
+void desenhaSemaforo(double raio, double x, double y, char cor_b[], char cor_p[], char svg[], char semaExpessura[]);
 
 /*
     *Desenha uma torre no arquivo svg, colcocando o comando adequado para isso
@@ -73,7 +73,7 @@ void desenhaSemaforo(double raio, double x, double y, char cor_b[], char cor_p[]
     *Retorna nada, fecha o svg apenas.
     * 
 */
-void desenhaRadioBase(double raio, double x, double y, char cor_b[], char cor_p[], char svg[]);
+void desenhaRadioBase(double raio, double x, double y, char cor_b[], char cor_p[], char svg[], char radioExpessura[]);
 
 /*
     *Finaliza o arquivo svg colocando o comando necessario nele
