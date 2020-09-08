@@ -23,6 +23,7 @@ void lerQry (char saidaQry[], Lista listasObjetos, char arqQry[])
 
     int j;
     int k;
+    int ident;
     double x;
     double y;
     char tipo[5];
@@ -75,9 +76,9 @@ void lerQry (char saidaQry[], Lista listasObjetos, char arqQry[])
             delf(listasObjetos, j, saida);
             delf(listasObjetos, k, saida);
         }
-        else if(strcmp(tipo, "dq") == 0) 
-        {   
-            int ident;
+       else if(strcmp(tipo, "dq") == 0) 
+        {
+            
             fscanf(qry,"%s", parametroOpcional);
 
              if(strcmp(parametroOpcional,"#")==0)
@@ -89,8 +90,9 @@ void lerQry (char saidaQry[], Lista listasObjetos, char arqQry[])
             else
             {
                 ident=0;
-                fscanf(qry,"%s %lf",identificacao, &r);
-                fprintf(saida,"%s %s %lf\n",tipo, identificacao, r);
+                fscanf(qry,"%lf", &r);
+                strcpy(identificacao, parametroOpcional);
+                fprintf(saida,"dq %s %lf\n",identificacao, r);
             }
             dq(listasObjetos, saida, saidaSvg, identificacao, r, ident);
         }

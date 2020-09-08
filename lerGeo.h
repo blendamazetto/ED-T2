@@ -10,6 +10,11 @@
 #include "lista.h"
 #include "svg.h"
 
+/*
+*Le o arquivo geo
+*precisa do nome do arquivo e a lista para salvar as informacoes
+*não retorna nada
+*/
 void lerGeo(char arqGeo[], char nomeSvgGeo[], Lista listasObjetos[]);
 
 #endif

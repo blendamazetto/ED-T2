@@ -59,19 +59,32 @@ No getNext(No elemento);
 */
 Info getInfo(No elemento);
 
-/* funções do tad nao implementadas
-
-    insertAfter()
-    insertBefore()
-
+/*
+*Insere um elemento depois
+*Precisa da lista, do no a ser inserido e das informacoes
+*Retorna nada.
 */
-
 void insertAfter(Lista lista, No node, Info info);
 
+/*
+*Insere um elemento antes
+*Precisa da lista, do no a ser inserido e das informacoes
+*Retorna nada.
+*/
 void insertBefore(Lista lista, No node, Info info);
 
+/*
+*Remove um no da lista escolhida
+*Precisa da lista e do no a ser excluido
+*Retorna nada. 
+*/
 void removerNo(Lista lista, No no);
 
+/*
+*Remove as listas liberando a memoria
+*Precisa da lista
+*Retorna nada.
+*/
 void removeList(Lista l);
 
 

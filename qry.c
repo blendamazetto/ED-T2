@@ -412,8 +412,8 @@ void dq(Lista listaObjetos[], FILE* txt, char svg_qry[], char id[], double r, in
                 x = getHidranteX(info);
                 y = getHidranteY(info);
                 achou = 0;
-                fprintf(svgQry,"\t<circle cx=\"%lf\" cy=\"%lf\" r=\"%lf\" fill=\"black\" stroke=\"black\"/>\n",x,y,r);
-                fprintf(txt,"\nId: %s X: %lf Y: %lf\n",id,x,y);
+                fprintf(svgQry,"\n<circle cx=\"%lf\" cy=\"%lf\" r=\"%lf\" fill=\"black\" stroke=\"black\"/>\n",x,y,r);
+                fprintf(txt,"\n%s %lf %lf\n",id,x,y);
                 break;
             }
         }
@@ -429,8 +429,8 @@ void dq(Lista listaObjetos[], FILE* txt, char svg_qry[], char id[], double r, in
                 x = getSemaforoX(info);
                 y = getSemaforoY(info);
                 achou = 0;
-                fprintf(svgQry,"\t<circle cx=\"%lf\" cy=\"%lf\" r=\"%lf\" fill=\"black\" stroke=\"black\"/>\n",x,y,r);
-                fprintf(txt,"\nId: %s X: %lf Y: %lf\n",id,x,y);
+                fprintf(svgQry,"\n<circle cx=\"%lf\" cy=\"%lf\" r=\"%lf\" fill=\"black\" stroke=\"black\"/>\n",x,y,r);
+                fprintf(txt,"\n%s %lf %lf\n",id,x,y);
                 break;
             }
         }
@@ -446,8 +446,8 @@ void dq(Lista listaObjetos[], FILE* txt, char svg_qry[], char id[], double r, in
                 x = getRadiobaseX(info);
                 y = getRadiobaseY(info);
                 achou = 0;
-                fprintf(svgQry,"\t<circle cx=\"%lf\" cy=\"%lf\" r=\"%lf\" fill=\"black\" stroke=\"black\"/>\n",x,y,r);
-                fprintf(txt,"\nId: %s X: %lf Y: %lf\n",id,x,y);
+                fprintf(svgQry,"\n<circle cx=\"%lf\" cy=\"%lf\" r=\"%lf\" fill=\"black\" stroke=\"black\"/>\n",x,y,r);
+                fprintf(txt,"\n%s %lf %lf\n",id,x,y);
                 break;
             }
         }
@@ -455,7 +455,7 @@ void dq(Lista listaObjetos[], FILE* txt, char svg_qry[], char id[], double r, in
 
    if(achou == 1)
     {
-        fprintf(txt, "OBJETO NAO ENCONTRADO\n");
+        fprintf(txt, "\nOBJETO NAO ENCONTRADO\n");
         return;
     }
 
@@ -467,9 +467,9 @@ void dq(Lista listaObjetos[], FILE* txt, char svg_qry[], char id[], double r, in
         {
             if(ident)
             {
-                fprintf(svgQry,"\t<rect x=\"%lf\" y=\"%lf\" width=\"%lf\" height=\"%lf\" fill=\"beige\" stroke=\"olive\"  stroke-width=\"%s\" rx=\"20\"/>\n",getQuadraX(info),getQuadraY(info),getQuadraW(info),getQuadraH(info),getQuadraSw(info));
+                fprintf(svgQry,"\n<rect x=\"%lf\" y=\"%lf\" width=\"%lf\" height=\"%lf\" fill=\"beige\" stroke=\"olive\"  stroke-width=\"%s\" rx=\"20\"/>\n",getQuadraX(info),getQuadraY(info),getQuadraW(info),getQuadraH(info),getQuadraSw(info));
             }
-            fprintf(txt,"\n%s", getQuadraCep(info));
+            fprintf(txt,"\n%s\n", getQuadraCep(info));
             aux = node;
             node = getNext(node);
             removerNo(listaObjetos[3], aux);

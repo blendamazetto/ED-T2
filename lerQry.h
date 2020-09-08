@@ -12,7 +12,11 @@
 #include "qry.h"
 #include "busca.h"
 
-//le o arquivo qry e executa suas funcoes
+/*
+*Le o arquivo Qry e realiza suas funçcoes
+*precisa do nome do arquivo qry e a lista
+*não retorna nada
+*/
 void lerQry (char saidaQry[], Lista listasObjetos, char arqQry[]);
 
 #endif

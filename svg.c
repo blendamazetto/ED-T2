@@ -15,7 +15,7 @@ void iniciaSvg(char svg[])
         exit(1);
     }
 
-    fprintf(arqSvg, "<svg width=\"1000\" height=\"1000\">");
+    fprintf(arqSvg, "<svg>\n");
 
     fclose(arqSvg);
 }
@@ -31,8 +31,7 @@ void desenhaCirculo(double raio, double x, double y, char cor_b[], char cor_p[],
         exit(1);
     }
 
-    fprintf(arqSvg, "\n<circle cx=\"%lf\" cy=\"%lf\" r=\"%lf\" stroke=\"%s\" fill=\"%s\"/>\n ",
-    x, y, raio, cor_b, cor_p);
+    fprintf(arqSvg, "\n<circle cx=\"%lf\" cy=\"%lf\" r=\"%lf\" stroke=\"%s\" fill=\"%s\"/>\n ", x, y, raio, cor_b, cor_p);
 
     fclose(arqSvg);
 
@@ -102,8 +101,7 @@ void desenhaHidrante(double raio, double x, double y, char cor_b[], char cor_p[]
         exit(1);
     }
 
-    fprintf(arqSvg, "\n<circle cx=\"%lf\" cy=\"%lf\" r=\"%lf\" stroke=\"%s\" stroke-width=\"0.5 \" fill=\"%s\"/>\n ",
-    x, y, raio, cor_b,cor_p);
+    fprintf(arqSvg, "\n<circle cx=\"%lf\" cy=\"%lf\" r=\"%lf\" stroke=\"%s\" stroke-width=\"0.5 \" fill=\"%s\"/>\n ", x, y, raio, cor_b,cor_p);
 
     fprintf(arqSvg, "\n<text x=\"%lf\" y=\"%lf\" fill=\"black\">H</text>\n", x, y);
 
@@ -121,8 +119,7 @@ void desenhaSemaforo(double raio, double x, double y, char cor_b[], char cor_p[]
         exit(1);
     }
 
-    fprintf(arqSvg, "\n<circle cx=\"%lf\" cy=\"%lf\" r=\"%lf\" stroke=\"%s\" stroke-width=\"0.5 \" fill=\"%s\"/>\n ",
-    x, y, raio, cor_b,cor_p);
+    fprintf(arqSvg, "\n<circle cx=\"%lf\" cy=\"%lf\" r=\"%lf\" stroke=\"%s\" stroke-width=\"0.5 \" fill=\"%s\"/>\n ", x, y, raio, cor_b,cor_p);
 
     fprintf(arqSvg, "\n<text x=\"%lf\" y=\"%lf\" fill=\"black\">S</text>\n", x, y);
     fclose(arqSvg);
@@ -217,7 +214,7 @@ void gerarSvgQry(Lista listasObjetos[], char saidaSvg[])
         for(node = getFirst(listasObjetos[i]); node != NULL; node = getNext(node))
         {
             Info h = getInfo(node);
-            desenhaHidrante(10, getHidranteX(h), getHidranteY(h), getHidranteCstrk(h), getHidranteCfill(h), saidaSvg);            
+            desenhaHidrante(5, getHidranteX(h), getHidranteY(h), getHidranteCstrk(h), getHidranteCfill(h), saidaSvg);            
         } 
         i++;
     }
@@ -228,7 +225,7 @@ void gerarSvgQry(Lista listasObjetos[], char saidaSvg[])
         for(node = getFirst(listasObjetos[i]); node != NULL; node = getNext(node))
         {
             Info s = getInfo(node);
-            desenhaSemaforo(10, getSemaforoX(s), getSemaforoY(s), getSemaforoCstrk(s), getSemaforoCfill(s), saidaSvg);
+            desenhaSemaforo(5, getSemaforoX(s), getSemaforoY(s), getSemaforoCstrk(s), getSemaforoCfill(s), saidaSvg);
         } 
         i++;
     }
@@ -239,7 +236,7 @@ void gerarSvgQry(Lista listasObjetos[], char saidaSvg[])
         for(node = getFirst(listasObjetos[i]); node != NULL; node = getNext(node))
         {
             Info rb = getInfo(node);
-            desenhaRadioBase(10, getRadiobaseX(rb), getRadiobaseY(rb), getRadiobaseCstrk(rb), getRadiobaseCfill(rb), saidaSvg);            
+            desenhaRadioBase(5, getRadiobaseX(rb), getRadiobaseY(rb), getRadiobaseCstrk(rb), getRadiobaseCfill(rb), saidaSvg);            
         } 
         i++;
     }

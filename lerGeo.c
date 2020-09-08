@@ -98,7 +98,7 @@ void lerGeo(char arqGeo[], char nomeSvgGeo[], Lista listasObjetos[])
         {
             fscanf(geo,"%s %lf %lf\n", id2, &x, &y);
             Hidrante hidrante = criaHidrante(id2, x, y, hidraExpessura, Hpreenchimento, Hborda);
-            desenhaHidrante(10, x, y, Qborda, Qpreenchimento, nomeSvgGeo);
+            desenhaHidrante(5, x, y, Qborda, Qpreenchimento, nomeSvgGeo);
             insert(listasObjetos[4], hidrante);
 
             n++;
@@ -107,7 +107,7 @@ void lerGeo(char arqGeo[], char nomeSvgGeo[], Lista listasObjetos[])
         {
             fscanf(geo,"%s %lf %lf\n", id2, &x, &y);
             Semaforo semaforo = criaSemaforo(id2, x, y, semaExpessura, Spreenchimento, Sborda);
-            desenhaSemaforo(10, x, y, Sborda, Spreenchimento, nomeSvgGeo);
+            desenhaSemaforo(5, x, y, Sborda, Spreenchimento, nomeSvgGeo);
             insert(listasObjetos[5], semaforo);
             
             n++;
@@ -116,7 +116,7 @@ void lerGeo(char arqGeo[], char nomeSvgGeo[], Lista listasObjetos[])
         {
             fscanf(geo,"%s %lf %lf\n", id2, &x, &y);
             Radiobase radioBase = criaRadiobase(id2, x, y, radioExpessura, RBpreenchimento, RBborda);
-            desenhaRadioBase(10, x, y, RBborda, RBpreenchimento, nomeSvgGeo);
+            desenhaRadioBase(5, x, y, RBborda, RBpreenchimento, nomeSvgGeo);
             insert(listasObjetos[6], radioBase);
             
             n++;
