@@ -11,9 +11,8 @@ void lerGeo(char arqGeo[], char nomeSvgGeo[], Lista listasObjetos[])
     double raio;
     int max[5] = {1000, 1000, 1000, 1000, 1000};
     char id2[20];
-    char *txt;
+    char *txt=NULL;
     int n = 0;
-    size_t bufsize = 32;
     char tipo[10];
     char cep[20];
     double x, y, h, w;
@@ -79,11 +78,7 @@ void lerGeo(char arqGeo[], char nomeSvgGeo[], Lista listasObjetos[])
         else if(strcmp(tipo, "t")==0)
         {   
             fscanf(geo,"%d %lf %lf %s %s", &id1, &x, &y, borda, preenchimento);
-
-            txt = (char *)malloc(bufsize * sizeof(char));
-
-            getline(&txt, &bufsize, geo);
-
+            fgets(txt, 255, geo);
             Texto texto = criaTexto(id1, x, y, borda, preenchimento, txt);
             escreveTexto(x, y, borda, preenchimento, strtok(txt,"\n"), nomeSvgGeo);
             insert(listasObjetos[2], texto);

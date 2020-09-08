@@ -66,6 +66,12 @@ Info getInfo(No elemento);
 
 */
 
+void insertAfter(Lista lista, No node, Info info);
+
+void insertBefore(Lista lista, No node, Info info);
+
+void removerNo(Lista lista, No no);
+
 void removeList(Lista l);
 
 
