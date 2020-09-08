@@ -27,7 +27,7 @@ void lerGeo(char arqGeo[], char nomeSvgGeo[], Lista listasObjetos[])
     char preenchimento[22];
     char Qborda[22] = "black", Qpreenchimento[22] = "red";
     char RBborda[22] = "black", RBpreenchimento[22] = "green";
-    char Sborda[22] = "black", Spreenchimento[22] = "blue";
+    char Sborda[22] = "black", Spreenchimento[22] = "red";
     char Hborda[22] = "black", Hpreenchimento[22] = "yellow";
 
     hidraExpessura[0] = '2';
