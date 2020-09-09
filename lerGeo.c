@@ -157,7 +157,6 @@ void lerGeo(char arqGeo[], char nomeSvgGeo[], Lista listasObjetos[])
         else if(strcmp(tipo, "sw")==0)
         {
             fscanf(geo,"%s %s\n", circleExpessura, rectExpessura);          
-
             n++;
         }
     }
