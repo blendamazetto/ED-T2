@@ -67,7 +67,7 @@ void lerGeo(char arqGeo[], char nomeSvgGeo[], Lista listasObjetos[])
         }
         else if(strcmp(tipo, "r")==0)
         {
-            fscanf(geo,"%d %lf %lf %lf %lf %s %s\n", &id1, &x, &y, &h, &w, borda, preenchimento);
+            fscanf(geo,"%d %lf %lf %lf %lf %s %s\n", &id1, &w, &h, &x, &y, borda, preenchimento);
             Retangulo retangulo = criaRetangulo(id1, w, h, x, y, rectExpessura, borda, preenchimento);
             desenhaRetangulo(w, h, x, y, borda, preenchimento, nomeSvgGeo);
             insert(listasObjetos[1], retangulo);
