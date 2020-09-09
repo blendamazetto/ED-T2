@@ -10,22 +10,22 @@ typedef struct t{
     double y;
     char corb[20];
     char corp[20];
-    char txto[20];
+    char texto[20];
 
 }TextoStruct;
 
-Texto criaTexto(int i, double x, double y, char corb[], char corp[], char txto[])
+Texto criaTexto(int i, double x, double y, char corb[], char corp[], char texto[255])
 {
-    TextoStruct* texto = (TextoStruct*) malloc(sizeof(TextoStruct));
+    TextoStruct* text = (TextoStruct*) malloc(sizeof(TextoStruct));
 
-    texto->i = i;
-    texto->x = x;
-    texto->y = y;
-    strcpy(texto->corb, corb);
-    strcpy(texto->corp, corp);
-    strcpy(texto->txto, txto);
+    text->i = i;
+    text->x = x;
+    text->y = y;
+    strcpy(text->corb, corb);
+    strcpy(text->corp, corp);
+    strcpy(text->texto, texto);
 
-    return texto;
+    return text;
 }
 
 int getTextoI(Texto texto)
@@ -61,7 +61,7 @@ char* getTextoCorp(Texto texto)
 char* getTextoTxto(Texto texto)
 {
     TextoStruct* text = (TextoStruct*) texto;
-    return text->txto;
+    return text->texto;
 }
 
 void setTextoI(Texto texto, int i)
@@ -97,5 +97,5 @@ void setTextoCorp(Texto texto, char corp[])
 void setTextoTxto(Texto texto, char txto[])
 {
     TextoStruct* text = (TextoStruct*) texto;
-    strcpy(text->txto, txto);
+    strcpy(text->texto, txto);
 }

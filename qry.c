@@ -24,7 +24,7 @@ void car(Lista listasObjetos[], double x, double y, double w, double h, char sai
     }   
 
     fprintf(saida, "%lf\n",areaTotal);
-    fprintf(svgQry, "\t<rect x=\"%lf\" y=\"%lf\" width=\"%lf\" height=\"%lf\" fill=\"transparent\" stroke=\"black\"/>\n",x,y,w,h);
+    fprintf(svgQry, "\t<rect x=\"%lf\" y=\"%lf\" width=\"%lf\" height=\"%lf\" fill=\"none\" stroke=\"black\" stroke-width=\"2.5\"/>\n",x,y,w,h);
     fprintf(svgQry,"\t<line x1=\"%lf\" y1=\"%lf\" x2=\"%lf\" y2=\"%d\" stroke=\"black\"/>\n",x,y,x,0);
     fprintf(svgQry,"\t<text x=\"%lf\" y=\"%d\">%lf</text>\n",x,0,areaTotal);
 
@@ -289,12 +289,12 @@ void retanguloxCirculo(Info circ, Info ret, FILE* saida, char saidaSvg[])
     if(sqrt(deltaX + deltaY) <= getCirculoR(circ))
     {
         fprintf(saida,"%d: circulo %d: retangulo SIM\n", getCirculoI(circ), getRetanguloI(ret));
-        desenhaRetangulo(w,h,x,y, "black", "transparent", saidaSvg);
+        desenhaRetangulo(w,h,x,y, "black", "none", saidaSvg);
     }
     else
     {
         fprintf(saida,"%d: circulo %d: retangulo NAO\n", getCirculoI(circ), getRetanguloI(ret));
-        desenhaRetangulo(w,h,x,y, "black", "transparent", saidaSvg);
+        desenhaRetanguloTracejado(w,h,x,y, "black", saidaSvg);
     }
 }
 
@@ -311,12 +311,12 @@ void circuloInt(Info c1, Info c2, FILE* saida, char saidaSvg[])
     if(dist <= getCirculoR(c2) + getCirculoR(c1))
     {
         fprintf(saida,"%d: circulo %d: circulo SIM\n", getCirculoI(c1),getCirculoI(c2));
-        desenhaRetangulo(w,h,x,y, "black", "transparent", saidaSvg);
+        desenhaRetangulo(w,h,x,y, "black", "none", saidaSvg);
     }
     else
     {
         fprintf(saida,"%d: circulo %d: circulo NAO\n",getCirculoI(c1),getCirculoI(c2));
-        desenhaRetangulo(w,h,x,y, "black", "transparent", saidaSvg);
+        desenhaRetanguloTracejado(w,h,x,y, "black", saidaSvg);
     }
 }
 
@@ -331,12 +331,12 @@ void retanguloInt(Info r1, Info r2, FILE* saida, char saidaSvg[])
     if (w <= getRetanguloW(r1) + getRetanguloW(r2) && h <= getRetanguloH(r1) + getRetanguloH(r2))
     {
         fprintf(saida,"%d: retangulo %d: retangulo SIM\n", getRetanguloI(r1),getRetanguloI(r2));
-        desenhaRetangulo(w,h,x,y, "black", "transparent", saidaSvg);
+        desenhaRetangulo(w,h,x,y, "black", "none", saidaSvg);
     }
     else
     {
         fprintf(saida,"%d: retangulo %d: retangulo NAO\n", getRetanguloI(r1),getRetanguloI(r2));
-        desenhaRetangulo(w,h,x,y, "black", "transparent", saidaSvg);
+        desenhaRetanguloTracejado(w,h,x,y, "black", saidaSvg);
     }
 }
 

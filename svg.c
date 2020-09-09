@@ -31,7 +31,7 @@ void desenhaCirculo(double raio, double x, double y, char cor_b[], char cor_p[],
         exit(1);
     }
 
-    fprintf(arqSvg, "\n<circle cx=\"%lf\" cy=\"%lf\" r=\"%lf\" stroke=\"%s\" fill=\"%s\"/>\n ", x, y, raio, cor_b, cor_p);
+    fprintf(arqSvg, "\t<circle cx=\"%lf\" cy=\"%lf\" r=\"%lf\" stroke=\"%s\" fill=\"%s\"/>\n ", x, y, raio, cor_b, cor_p);
 
     fclose(arqSvg);
 
@@ -49,7 +49,23 @@ void desenhaRetangulo(double w, double h, double x, double y, char cor_b[], char
         exit(1);
     }
 
-    fprintf(arqSvg, "\t<rect x=\"%lf\" y=\"%lf\" width=\"%lf\" height=\"%lf\" fill=\"%s\" stroke=\"%s\"/>\n",x,y,w,h,cor_p,cor_b);
+    fprintf(arqSvg, "\t<rect x=\"%lf\" y=\"%lf\" width=\"%lf\" height=\"%lf\" fill=\"%s\" stroke=\"%s\" stroke-width =\"1\"/>\n",x,y,w,h,cor_p,cor_b);
+
+    fclose(arqSvg);
+}
+
+void desenhaRetanguloTracejado(double w, double h, double x, double y, char cor_b[], char svg[])
+{
+    FILE *arqSvg;
+    arqSvg = fopen(svg, "a");
+
+    if(arqSvg == NULL)
+    {
+        printf("\nERRO\nArquivo .svg nao pode ser editado");
+        exit(1);
+    }
+
+    fprintf(arqSvg, "\t<rect x=\"%lf\" y=\"%lf\" width=\"%lf\" height=\"%lf\" fill=\"none\" stroke=\"%s\" stroke-width =\"1\" stroke-dasharray=\"1\" />\n",x,y,w,h,cor_b);
 
     fclose(arqSvg);
 }
@@ -82,7 +98,7 @@ void desenhaQuadra(double w, double h, double x, double y, char cor_b[], char co
     }
 
     fprintf(arqSvg,"\t<rect x=\"%lf\" y=\"%lf\" width=\"%lf\" height=\"%lf\" fill=\"%s\" stroke=\"%s\" stroke-width=\"%s\"/>\n",x, y, w, h, cor_p, cor_b, quaExpessura);
-    fprintf(arqSvg, "\n<text x=\"%lf\" y=\"%lf\" fill=\"black\">%s</text>\n", x+w/2, y+h/2, cep);
+    fprintf(arqSvg, "\t<text x=\"%lf\" y=\"%lf\" fill=\"black\">%s</text>\n", x+w/2, y+h/2, cep);
 
     fclose(arqSvg);
 
@@ -99,8 +115,7 @@ void desenhaHidrante(double raio, double x, double y, char cor_b[], char cor_p[]
         exit(1);
     }
 
-    fprintf(arqSvg, "\n<circle cx=\"%lf\" cy=\"%lf\" r=\"%lf\" stroke=\"%s\" stroke-width=\"%s\" fill=\"%s\"/>\n ", x, y, raio, cor_b, hidraExpessura,cor_p);
-    //fprintf(arqSvg, "\n<text x=\"%lf\" y=\"%lf\" fill=\"black\">H</text>\n", x, y);
+    fprintf(arqSvg, "\t<circle cx=\"%lf\" cy=\"%lf\" r=\"%lf\" stroke=\"%s\" stroke-width=\"%s\" fill=\"%s\"/>\n ", x, y, raio, cor_b, hidraExpessura,cor_p);
 
     fclose(arqSvg);
 }
@@ -116,9 +131,8 @@ void desenhaSemaforo(double raio, double x, double y, char cor_b[], char cor_p[]
         exit(1);
     }
 
-    fprintf(arqSvg, "\n<circle cx=\"%lf\" cy=\"%lf\" r=\"%lf\" stroke=\"%s\" stroke-width=\"%s\" fill=\"%s\"/>\n ", x, y, raio, cor_b, semaExpessura, cor_p);
+    fprintf(arqSvg, "\t<circle cx=\"%lf\" cy=\"%lf\" r=\"%lf\" stroke=\"%s\" stroke-width=\"%s\" fill=\"%s\"/>\n ", x, y, raio, cor_b, semaExpessura, cor_p);
 
-   // fprintf(arqSvg, "\n<text x=\"%lf\" y=\"%lf\" fill=\"black\">S</text>\n", x, y);
     fclose(arqSvg);
 }
 
@@ -133,9 +147,8 @@ void desenhaRadioBase(double raio, double x, double y, char cor_b[], char cor_p[
         exit(1);
     }
 
-    fprintf(arqSvg, "\n<circle cx=\"%lf\" cy=\"%lf\" r=\"%lf\" stroke=\"%s\" stroke-width=\"%s\" fill=\"%s\"/>\n ", x, y, raio, cor_b, radioExpessura, cor_p);
+    fprintf(arqSvg, "\t<circle cx=\"%lf\" cy=\"%lf\" r=\"%lf\" stroke=\"%s\" stroke-width=\"%s\" fill=\"%s\"/>\n ", x, y, raio, cor_b, radioExpessura, cor_p);
 
-   // fprintf(arqSvg, "\n<text x=\"%lf\" y=\"%lf\" fill=\"black\">RB</text>\n", x, y);
 
     fclose(arqSvg);
 

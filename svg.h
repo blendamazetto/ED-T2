@@ -28,11 +28,20 @@ void iniciaSvg(char svg[]);
 void desenhaCirculo(double raio, double x, double y, char cor_b[], char cor_p[], char svg[]);
 
 /*
+    *Desenha um retangulo tracejado no arquivo svg, colcocando o comando adequado para isso
+    *E passado como parametro todos os dados necessarios para o retangulo e o arquivo svg para ser aberto
+    *Retorna nada, fecha o svg apenas.
+    * 
+*/
+void desenhaRetanguloTracejado(double w, double h, double x, double y, char cor_b[], char svg[]);
+
+/*
     *Desenha um retangulo no arquivo svg, colcocando o comando adequado para isso
     *E passado como parametro todos os dados necessarios para o retangulo e o arquivo svg para ser aberto
     *Retorna nada, fecha o svg apenas.
     * 
 */
+
 void desenhaRetangulo(double w, double h, double x, double y, char cor_b[], char cor_p[], char svg[]);
 
 /*
@@ -41,6 +50,7 @@ void desenhaRetangulo(double w, double h, double x, double y, char cor_b[], char
     *Retorna nada, fecha o svg apenas.
     * 
 */
+
 void escreveTexto(double x, double y, char cor_b[], char cor_p[], char text[], char svg[]);
 
 /*

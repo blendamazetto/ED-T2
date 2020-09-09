@@ -11,7 +11,7 @@ void lerGeo(char arqGeo[], char nomeSvgGeo[], Lista listasObjetos[])
     double raio;
     int max[5] = {1000, 1000, 1000, 1000, 1000};
     char id2[20];
-    char *txt=NULL;
+    char txt[255];
     int n = 0;
     char tipo[10];
     char cep[20];
@@ -46,7 +46,6 @@ void lerGeo(char arqGeo[], char nomeSvgGeo[], Lista listasObjetos[])
     }
     
     iniciaSvg(nomeSvgGeo);
-    printf("\nArquivo .svg aberto com sucesso\n");
     
     while(!feof(geo))
     {
@@ -69,21 +68,19 @@ void lerGeo(char arqGeo[], char nomeSvgGeo[], Lista listasObjetos[])
         else if(strcmp(tipo, "r")==0)
         {
             fscanf(geo,"%d %lf %lf %lf %lf %s %s\n", &id1, &x, &y, &h, &w, borda, preenchimento);
-            Retangulo retangulo = criaRetangulo(id1, h, w, x, y, rectExpessura, borda, preenchimento);
+            Retangulo retangulo = criaRetangulo(id1, w, h, x, y, rectExpessura, borda, preenchimento);
             desenhaRetangulo(w, h, x, y, borda, preenchimento, nomeSvgGeo);
             insert(listasObjetos[1], retangulo);
             
             n++;
         }
         else if(strcmp(tipo, "t")==0)
-        {   
+        {
             fscanf(geo,"%d %lf %lf %s %s", &id1, &x, &y, borda, preenchimento);
             fgets(txt, 255, geo);
             Texto texto = criaTexto(id1, x, y, borda, preenchimento, txt);
             escreveTexto(x, y, borda, preenchimento, strtok(txt,"\n"), nomeSvgGeo);
             insert(listasObjetos[2], texto);
-
-            free(txt);
         }
         else if(strcmp(tipo, "q")==0)
         {
@@ -166,7 +163,6 @@ void lerGeo(char arqGeo[], char nomeSvgGeo[], Lista listasObjetos[])
     }
     
     finalizaSvg(nomeSvgGeo);
-    printf("\nArquivo .svg finalizado com sucesso");
     fclose(geo);
 
 }
