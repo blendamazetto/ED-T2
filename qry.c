@@ -19,7 +19,7 @@ void car(Lista listasObjetos[], double x, double y, double w, double h, char sai
             areaTotal=areaTotal+(getQuadraH(q)*getQuadraW(q));
 
             fprintf(saida, "%s %lf\n", getQuadraCep(q),(getQuadraH(q)*getQuadraW(q)));
-            fprintf(svgQry,"\t<text x=\"%lf\" y=\"%lf\" >%lf</text>\n",((getQuadraX(q)+getQuadraW(q))/2),((getQuadraY(q)+getQuadraH(q))/2),(getQuadraW(q)*getQuadraH(q)));
+            fprintf(svgQry,"\t<text x=\"%lf\" y=\"%lf\" >%lf</text>\n",(getQuadraX(q)+getQuadraW(q)/2),(getQuadraY(q)+getQuadraH(q)/2),(getQuadraW(q)*getQuadraH(q)));
         }
     }   
 
@@ -94,14 +94,14 @@ void i(Lista listasObjetos[], int j,  double x, double y, char saidaSvg[], FILE*
             {
                 fprintf(saida,"retangulo interno\n");
                 desenhaCirculo(10, x, y, "blue", "blue", saidaSvg);
-                fprintf(svgQry,"\t<line x1=\"%lf\" y1=\"%lf\" x2=\"%lf\" y2=\"%lf\" stroke=\"%s\"/>\n",x ,y ,(getRetanguloX(r)+getRetanguloW(r))/2 ,(getRetanguloY(r)+getRetanguloH(r))/2 ,"blue");
+                fprintf(svgQry,"\t<line x1=\"%lf\" y1=\"%lf\" x2=\"%lf\" y2=\"%lf\" stroke=\"%s\"/>\n",x ,y ,getRetanguloX(r)+getRetanguloW(r)/2 ,getRetanguloY(r)+getRetanguloH(r)/2 ,"blue");
 
             }
             else
             {
                 fprintf(saida,"retangulo nao interno\n");
                 desenhaCirculo(10, x, y ,"magenta", "magenta", saidaSvg);
-                fprintf(svgQry,"\t<line x1=\"%lf\" y1=\"%lf\" x2=\"%lf\" y2=\"%lf\" stroke=\"%s\"/>\n",x ,y ,(getRetanguloX(r)+getRetanguloW(r))/2 ,(getRetanguloY(r)+getRetanguloH(r))/2 ,"magenta");
+                fprintf(svgQry,"\t<line x1=\"%lf\" y1=\"%lf\" x2=\"%lf\" y2=\"%lf\" stroke=\"%s\"/>\n",x ,y ,getRetanguloX(r)+getRetanguloW(r)/2 ,getRetanguloY(r)+getRetanguloH(r)/2 ,"magenta");
             }
         }
     } 
@@ -179,8 +179,8 @@ void del (Lista listasObjetos[], char id[], FILE* saida, char saidaSvg[])
     {
         Info q = getInfo(buscarQuadra(listasObjetos, id));
         fprintf(saida,"%s %lf %lf %lf %lf\n", getQuadraCep(q), getQuadraX(q), getQuadraY(q), getQuadraW(q), getQuadraH(q));
-        fprintf(svgQry,"\t<line x1=\"%lf\" y1=\"%lf\" x2=\"%lf\" y2=\"%d\" stroke=\"%s\"/>\n",(getQuadraX(q)+getQuadraW(q))/2,((getQuadraY(q)+getQuadraH(q))/2),(getQuadraX(q)+getQuadraW(q))/2,0,"black");
-        fprintf(svgQry,"\t<text x=\"%lf\" y=\"%d\" >%s</text>\n",(getQuadraX(q)+getQuadraW(q))/2,0, getQuadraCep(q));
+        fprintf(svgQry,"\t<line x1=\"%lf\" y1=\"%lf\" x2=\"%lf\" y2=\"%d\" stroke=\"%s\"/>\n",getQuadraX(q)+getQuadraW(q)/2,(getQuadraY(q)+getQuadraH(q)/2),getQuadraX(q)+getQuadraW(q)/2,0,"black");
+        fprintf(svgQry,"\t<text x=\"%lf\" y=\"%d\" >%s</text>\n",getQuadraX(q)+getQuadraW(q)/2,0, getQuadraCep(q));
         removerNo(listasObjetos[3], buscarQuadra(listasObjetos, id));
     }
 
@@ -411,7 +411,9 @@ void dq(Lista listaObjetos[], FILE* txt, char svg_qry[], char id[], double r, in
                 x = getHidranteX(info);
                 y = getHidranteY(info);
                 achou = 0;
-                fprintf(svgQry,"\n<circle cx=\"%lf\" cy=\"%lf\" r=\"%lf\" fill=\"black\" stroke=\"black\"/>\n",x,y,r);
+                fprintf(svgQry,"\n<circle cx=\"%lf\" cy=\"%lf\" r=\"%lf\" fill=\"none\" stroke=\"black\"/>\n",x,y,r);
+                desenhaCirculo(6, x, y, "blue", "none", svg_qry);
+                desenhaCirculo(7, x, y, "yellow", "none", svg_qry);
                 strcpy(auxId, id);
                 auxX=x;
                 auxY=y;
@@ -430,7 +432,9 @@ void dq(Lista listaObjetos[], FILE* txt, char svg_qry[], char id[], double r, in
                 x = getSemaforoX(info);
                 y = getSemaforoY(info);
                 achou = 0;
-                fprintf(svgQry,"\n<circle cx=\"%lf\" cy=\"%lf\" r=\"%lf\" fill=\"black\" stroke=\"black\"/>\n",x,y,r);
+                fprintf(svgQry,"\n<circle cx=\"%lf\" cy=\"%lf\" r=\"%lf\" fill=\"none\" stroke=\"black\"/>\n",x,y,r);
+                desenhaCirculo(6, x, y, "blue", "none", svg_qry);
+                desenhaCirculo(7, x, y, "yellow", "none", svg_qry);
                 strcpy(auxId, id);
                 auxX=x;
                 auxY=y;
@@ -449,7 +453,9 @@ void dq(Lista listaObjetos[], FILE* txt, char svg_qry[], char id[], double r, in
                 x = getRadiobaseX(info);
                 y = getRadiobaseY(info);
                 achou = 0;
-                fprintf(svgQry,"\n<circle cx=\"%lf\" cy=\"%lf\" r=\"%lf\" fill=\"black\" stroke=\"black\"/>\n",x,y,r);
+                fprintf(svgQry,"\n<circle cx=\"%lf\" cy=\"%lf\" r=\"%lf\" fill=\"none\" stroke=\"black\"/>\n",x,y,r);
+                desenhaCirculo(6, x, y, "blue", "none", svg_qry);
+                desenhaCirculo(7, x, y, "yellow", "none", svg_qry);
                 strcpy(auxId, id);
                 auxX=x;
                 auxY=y;
